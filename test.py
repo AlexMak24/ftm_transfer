@@ -18,7 +18,7 @@ if not w3_sonic.is_connected():
 # Адрес контракта для бриджа FTM → S
 contract_address = '0x3561607590e28e0848ba3B67074C676d6d1c9953'
 
-# ABI контракта (берём из твоего кода, оно корректное)
+# ABI контракта (без изменений)
 contract_abi = json.loads('''[{"inputs":[{"internalType":"address","name":"_cfgAdmin","type":"address"},{"internalType":"uint256","name":"_peerChainID","type":"uint256"},{"internalType":"uint256","name":"_fee","type":"uint256"},{"internalType":"uint256","name":"_minDeposit","type":"uint256"},{"internalType":"uint256","name":"_sigThreshold","type":"uint256"},{"internalType":"uint256","name":"_batchCheckpoint","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"AccessControlBadConfirmation","type":"error"},{"inputs":[{"internalType":"uint48","name":"schedule","type":"uint48"}],"name":"AccessControlEnforcedDefaultAdminDelay","type":"error"},{"inputs":[],"name":"AccessControlEnforcedDefaultAdminRules","type":"error"},{"inputs":[{"internalType":"address","name":"defaultAdmin","type":"address"}],"name":"AccessControlInvalidDefaultAdmin","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"bytes32","name":"neededRole","type":"bytes32"}],"name":"AccessControlUnauthorizedAccount","type":"error"},{"inputs":[{"internalType":"uint256","name":"limit","type":"uint256"},{"internalType":"uint256","name":"balance","type":"uint256"}],"name":"BalanceBelowLimit","type":"error"},{"inputs":[{"internalType":"uint256","name":"limit","type":"uint256"},{"internalType":"uint256","name":"balance","type":"uint256"}],"name":"BalanceOverLimit","type":"error"},{"inputs":[{"internalType":"uint256","name":"expected","type":"uint256"},{"internalType":"uint256","name":"received","type":"uint256"}],"name":"DepositAboveLimit","type":"error"},{"inputs":[{"internalType":"uint256","name":"expected","type":"uint256"},{"internalType":"uint256","name":"received","type":"uint256"}],"name":"DepositBelowLimit","type":"error"},{"inputs":[{"internalType":"uint256","name":"depositID","type":"uint256"}],"name":"DepositNotFound","type":"error"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"DepositSettlementFailed","type":"error"},{"inputs":[{"internalType":"address","name":"target","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"DrainFailed","type":"error"},{"inputs":[],"name":"ECDSAInvalidSignature","type":"error"},{"inputs":[{"internalType":"uint256","name":"length","type":"uint256"}],"name":"ECDSAInvalidSignatureLength","type":"error"},{"inputs":[{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"ECDSAInvalidSignatureS","type":"error"},{"inputs":[],"name":"EnforcedPause","type":"error"},{"inputs":[],"name":"ExpectedPause","type":"error"},{"inputs":[{"internalType":"uint256","name":"expected","type":"uint256"},{"internalType":"uint256","name":"received","type":"uint256"}],"name":"FeeChanged","type":"error"},{"inputs":[{"internalType":"uint256","name":"available","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"InsufficientLiquidity","type":"error"},{"inputs":[{"internalType":"uint256","name":"lastID","type":"uint256"},{"internalType":"uint256","name":"currentID","type":"uint256"}],"name":"InvalidBatchSequence","type":"error"},{"inputs":[{"internalType":"address","name":"expectedSender","type":"address"}],"name":"InvalidClaimRequests","type":"error"},{"inputs":[{"internalType":"uint256","name":"lastID","type":"uint256"},{"internalType":"uint256","name":"receivedID","type":"uint256"}],"name":"InvalidDepositSequence","type":"error"},{"inputs":[{"internalType":"uint256","name":"expected","type":"uint256"},{"internalType":"uint256","name":"received","type":"uint256"}],"name":"InvalidDepositSum","type":"error"},{"inputs":[],"name":"InvalidDrainAddress","type":"error"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"InvalidImplicitDeposit","type":"error"},{"inputs":[{"internalType":"uint256","name":"maxDeposit","type":"uint256"},{"internalType":"uint256","name":"minDeposit","type":"uint256"}],"name":"InvalidMaxDepositToMinDeposit","type":"error"},{"inputs":[{"internalType":"uint256","name":"minDeposit","type":"uint256"},{"internalType":"uint256","name":"fee","type":"uint256"}],"name":"InvalidMinDepositToFee","type":"error"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"address","name":"sender","type":"address"}],"name":"InvalidRecipient","type":"error"},{"inputs":[],"name":"InvalidSignatureThreshold","type":"error"},{"inputs":[],"name":"ReentrancyGuardReentrantCall","type":"error"},{"inputs":[{"internalType":"uint8","name":"bits","type":"uint8"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"SafeCastOverflowedUintDowncast","type":"error"},{"inputs":[{"internalType":"uint256","name":"threshold","type":"uint256"},{"internalType":"uint256","name":"received","type":"uint256"}],"name":"SignatureDeficit","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"}],"name":"BatchProcessed","type":"event"},{"anonymous":false,"inputs":[],"name":"DefaultAdminDelayChangeCanceled","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint48","name":"newDelay","type":"uint48"},{"indexed":false,"internalType":"uint48","name":"effectSchedule","type":"uint48"}],"name":"DefaultAdminDelayChangeScheduled","type":"event"},{"anonymous":false,"inputs":[],"name":"DefaultAdminTransferCanceled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"newAdmin","type":"address"},{"indexed":false,"internalType":"uint48","name":"acceptSchedule","type":"uint48"}],"name":"DefaultAdminTransferScheduled","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newDepositFee","type":"uint256"}],"name":"DepositFeeUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"Deposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"}],"name":"Failed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newMaximalDepositAmount","type":"uint256"}],"name":"MaximalDepositAmountUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newMinimalDepositAmount","type":"uint256"}],"name":"MinimalDepositAmountUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Paused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newReserveAmount","type":"uint256"},{"indexed":false,"internalType":"address","name":"newReserveDrain","type":"address"}],"name":"ReserveBalanceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"}],"name":"Resolved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"previousAdminRole","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"newAdminRole","type":"bytes32"}],"name":"RoleAdminChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleGranted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleRevoked","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newSignatureThreshold","type":"uint256"}],"name":"SignatureThresholdUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Unpaused","type":"event"},{"inputs":[],"name":"DEFAULT_ADMIN_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PAUSE_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VALIDATOR_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptDefaultAdminTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newAdmin","type":"address"}],"name":"beginDefaultAdminTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"cancelDefaultAdminTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint48","name":"newDelay","type":"uint48"}],"name":"changeDefaultAdminDelay","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"depositID","type":"uint256"},{"internalType":"address","name":"receiver","type":"address"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"defaultAdmin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"defaultAdminDelay","outputs":[{"internalType":"uint48","name":"","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"defaultAdminDelayIncreaseWait","outputs":[{"internalType":"uint48","name":"","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"fee","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"depositFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"drain","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleAdmin","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"grantRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"hasRole","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastBatchID","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastDepositID","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastResolvedDepositID","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxDepositAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minDepositAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"peerChainID","outputs":[{"internalType":"uint256","name":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pendingDefaultAdmin","outputs":[{"internalType":"address","name":"newAdmin","type":"address"},{"internalType":"uint48","name":"schedule","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pendingDefaultAdminDelay","outputs":[{"internalType":"uint48","name":"newDelay","type":"uint48"},{"internalType":"uint48","name":"schedule","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"refill","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"renounceRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"reserveBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reserveDrain","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"batchID","type":"uint256"},{"internalType":"uint256","name":"total","type":"uint256"},{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct OperaBridge.Deposit[]","name":"deposits","type":"tuple[]"},{"internalType":"bytes[]","name":"signatures","type":"bytes[]"}],"name":"resolve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"revokeRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"rollbackDefaultAdminDelay","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_fee","type":"uint256"}],"name":"setDepositFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_max","type":"uint256"}],"name":"setMaximalDeposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_min","type":"uint256"}],"name":"setMinimalDeposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_balance","type":"uint256"},{"internalType":"address","name":"_drain","type":"address"}],"name":"setReserveBalance","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_threshold","type":"uint256"}],"name":"setSignatureThreshold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"signatureThreshold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"depositID","type":"uint256"}],"name":"unresolvedDeposit","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"stateMutability":"view","type":"function"},{"stateMutability":"payable","type":"receive"}]''')
 contract = w3_fantom.eth.contract(address=w3_fantom.to_checksum_address(contract_address), abi=contract_abi)
 
@@ -28,10 +28,10 @@ def check_balance_ftm(private_key):
         account_address = w3_fantom.eth.account.from_key(private_key).address
         balance_wei = w3_fantom.eth.get_balance(account_address)
         balance_ftm = w3_fantom.from_wei(balance_wei, 'ether')
-        return balance_ftm
+        return balance_wei, balance_ftm
     except Exception as e:
         print(f"❌ Ошибка проверки баланса FTM: {str(e)}")
-        return 0
+        return 0, 0
 
 # Функция для проверки баланса S в Sonic
 def check_balance_sonic(private_key):
@@ -39,13 +39,13 @@ def check_balance_sonic(private_key):
         account_address = w3_sonic.eth.account.from_key(private_key).address
         balance_wei = w3_sonic.eth.get_balance(account_address)
         balance_s = w3_sonic.from_wei(balance_wei, 'ether')
-        return balance_s
+        return balance_wei, balance_s
     except Exception as e:
         print(f"❌ Ошибка проверки баланса S: {str(e)}")
-        return 0
+        return 0, 0
 
 # Функция для бриджа FTM → S
-def bridge_ftm_to_sonic(private_key, amount_ftm):
+def bridge_ftm_to_sonic(private_key):
     try:
         account = w3_fantom.eth.account.from_key(private_key)
         wallet_address = account.address
@@ -56,63 +56,79 @@ def bridge_ftm_to_sonic(private_key, amount_ftm):
         if not w3_fantom.is_address(wallet_address):
             raise Exception("Некорректный адрес кошелька")
 
-        # Если amount_ftm = "max", берём весь баланс за вычетом газа
-        if amount_ftm == "max":
-            balance_wei = w3_fantom.eth.get_balance(wallet_address)
-            gas_reserve = w3_fantom.to_wei(0.01, 'ether')  # Резерв для газа
-            amount_to_deposit = max(balance_wei - gas_reserve, 0)
-            print(f"ℹ️ Режим max: используем {w3_fantom.from_wei(amount_to_deposit, 'ether')} FTM")
-        else:
-            amount_to_deposit = w3_fantom.to_wei(amount_ftm, 'ether')
-
-        # Проверка баланса FTM
-        balance_wei = w3_fantom.eth.get_balance(wallet_address)
-        if balance_wei < amount_to_deposit + w3_fantom.to_wei(0.01, 'ether'):
-            print(f"❌ Недостаточно FTM для бриджа: {w3_fantom.from_wei(balance_wei, 'ether')} FTM, нужно {w3_fantom.from_wei(amount_to_deposit, 'ether')} FTM + 0.01 FTM для газа")
-            return None
-
         # Проверка состояния контракта
         if contract.functions.paused().call():
             raise Exception("Контракт приостановлен")
 
-        # Проверка лимитов депозита
-        min_deposit = contract.functions.minDepositAmount().call()
-        max_deposit = contract.functions.maxDepositAmount().call()
-        if amount_to_deposit < min_deposit:
-            raise Exception(f"Сумма ниже минимальной: {w3_fantom.from_wei(min_deposit, 'ether')} FTM")
-        if amount_to_deposit > max_deposit and max_deposit != 0:
-            raise Exception(f"Сумма выше максимальной: {w3_fantom.from_wei(max_deposit, 'ether')} FTM")
+        # Получаем баланс FTM
+        balance_wei, balance_ftm = check_balance_ftm(private_key)
+        print(f"ℹ️ Баланс FTM: {balance_ftm} FTM")
 
         # Проверка комиссии депозита
         deposit_fee = contract.functions.depositFee().call()
-        print(f"ℹ️ Текущая комиссия контракта: {w3_fantom.from_wei(deposit_fee, 'ether')} FTM")
-        if balance_wei < amount_to_deposit + deposit_fee + w3_fantom.to_wei(0.01, 'ether'):
-            print(f"❌ Недостаточно FTM для комиссии: {w3_fantom.from_wei(balance_wei, 'ether')} FTM, нужно {w3_fantom.from_wei(amount_to_deposit + deposit_fee, 'ether')} FTM + 0.01 FTM для газа")
+        deposit_fee_ftm = w3_fantom.from_wei(deposit_fee, 'ether')
+        print(f"ℹ️ Комиссия контракта: {deposit_fee_ftm} FTM")
+
+        # Проверка лимитов депозита
+        min_deposit = contract.functions.minDepositAmount().call()
+        max_deposit = contract.functions.maxDepositAmount().call()
+        min_deposit_ftm = w3_fantom.from_wei(min_deposit, 'ether')
+        max_deposit_ftm = w3_fantom.from_wei(max_deposit, 'ether') if max_deposit != 0 else "без лимита"
+        print(f"ℹ️ Лимиты депозита: мин={min_deposit_ftm} FTM, макс={max_deposit_ftm}")
+
+        # Проверка баланса на минимальный депозит
+        if balance_wei < min_deposit + deposit_fee:
+            print(f"❌ Недостаточно FTM для минимального депозита: {balance_ftm} FTM, нужно минимум {w3_fantom.from_wei(min_deposit + deposit_fee, 'ether')} FTM")
             return None
 
-        # Получаем nonce
+        # Предполагаемая сумма для оценки газа (берём весь баланс минус комиссия)
+        estimated_deposit = max(balance_wei - deposit_fee, min_deposit)
         nonce = w3_fantom.eth.get_transaction_count(wallet_address)
-
-        # Подготовка транзакции для оценки газа
         tx_estimate = {
             'from': wallet_address,
-            'value': amount_to_deposit,
+            'value': estimated_deposit,
             'nonce': nonce,
             'chainId': 250  # Fantom Opera
         }
 
         # Оценка газа
-        estimated_gas = contract.functions.deposit(deposit_fee).estimate_gas(tx_estimate)
-        gas = int(estimated_gas * 1.2)  # Буфер +20%
-        print(f"ℹ️ Оценённый газ: {estimated_gas}, используем: {gas}")
+        try:
+            estimated_gas = contract.functions.deposit(deposit_fee).estimate_gas(tx_estimate)
+        except Exception as e:
+            print(f"❌ Ошибка оценки газа: {str(e)}")
+            return None
+        gas_limit = int(estimated_gas * 1.2)  # Буфер +20%
+        gas_price = w3_fantom.eth.gas_price
+        gas_cost = gas_price * gas_limit
+        gas_cost_ftm = w3_fantom.from_wei(gas_cost, 'ether')
+        print(f"ℹ️ Оценка газа: limit={gas_limit}, price={w3_fantom.from_wei(gas_price, 'gwei')} gwei, стоимость={gas_cost_ftm} FTM")
+
+        # Вычисляем максимальную сумму для бриджа
+        amount_to_deposit = max(balance_wei - deposit_fee - gas_cost, 0)
+        amount_to_deposit_ftm = w3_fantom.from_wei(amount_to_deposit, 'ether')
+        print(f"ℹ️ Максимум для бриджа: {amount_to_deposit_ftm} FTM")
+
+        # Проверки
+        if amount_to_deposit <= 0:
+            print(f"❌ Сумма для бриджа равна нулю: баланс {balance_ftm} FTM, комиссия {deposit_fee_ftm} FTM, газ {gas_cost_ftm} FTM")
+            return None
+        if balance_wei < amount_to_deposit + deposit_fee + gas_cost:
+            print(f"❌ Недостаточно FTM: {balance_ftm} FTM, нужно {w3_fantom.from_wei(amount_to_deposit + deposit_fee + gas_cost, 'ether')} FTM")
+            return None
+        if amount_to_deposit < min_deposit:
+            print(f"❌ Сумма ниже минимальной: {amount_to_deposit_ftm} FTM, нужно {min_deposit_ftm} FTM")
+            return None
+        if max_deposit != 0 and amount_to_deposit > max_deposit:
+            print(f"❌ Сумма выше максимальной: {amount_to_deposit_ftm} FTM, макс {max_deposit_ftm} FTM")
+            return None
 
         # Создаём транзакцию
         tx = contract.functions.deposit(deposit_fee).build_transaction({
             'from': wallet_address,
             'value': amount_to_deposit,
             'nonce': nonce,
-            'gas': gas,
-            'gasPrice': w3_fantom.eth.gas_price,
+            'gas': gas_limit,
+            'gasPrice': gas_price,
             'chainId': 250
         })
 
@@ -133,7 +149,7 @@ def bridge_ftm_to_sonic(private_key, amount_ftm):
         print(f"❌ Ошибка бриджа: {str(e)}")
         return None
 
-# Функция для перевода S в Sonic
+# Функция для перевода S в Sonic (без изменений)
 def transfer_sonic_tokens(private_key, destination_address):
     try:
         account = w3_sonic.eth.account.from_key(private_key)
@@ -146,14 +162,13 @@ def transfer_sonic_tokens(private_key, destination_address):
             raise Exception("Некорректный адрес назначения")
 
         # Проверка баланса S
-        balance_s_wei = w3_sonic.eth.get_balance(wallet_address)
-        balance_s = w3_sonic.from_wei(balance_s_wei, 'ether')
+        balance_s_wei, balance_s = check_balance_sonic(private_key)
         print(f"ℹ️ Баланс S: {balance_s} S")
 
         # Параметры газа
         gas_limit = 30000  # Фиксированный лимит с запасом
         gas_price = w3_sonic.eth.gas_price
-        gas_cost = gas_price * gas_limit  # Стоимость газа в wei
+        gas_cost = gas_price * gas_limit
         gas_cost_s = w3_sonic.from_wei(gas_cost, 'ether')
         print(f"ℹ️ Стоимость газа: {gas_cost_s} S (gas_limit={gas_limit}, gas_price={w3_sonic.from_wei(gas_price, 'gwei')} gwei)")
 
@@ -162,13 +177,13 @@ def transfer_sonic_tokens(private_key, destination_address):
             print(f"❌ Недостаточно S для оплаты газа: {balance_s} S, нужно минимум {gas_cost_s} S")
             return None
 
-        # Определяем сумму для перевода: весь баланс минус газ
+        # Максимальная сумма для перевода
         transfer_amount = balance_s_wei - gas_cost
+        transfer_amount_s = w3_sonic.from_wei(transfer_amount, 'ether')
         if transfer_amount <= 0:
             print(f"❌ Сумма для перевода равна нулю: баланс {balance_s} S, газ {gas_cost_s} S")
             return None
-
-        print(f"ℹ️ Отправляем: {w3_sonic.from_wei(transfer_amount, 'ether')} S")
+        print(f"ℹ️ Отправляем: {transfer_amount_s} S")
 
         # Получаем chainId
         sonic_chain_id = w3_sonic.eth.chain_id
@@ -212,19 +227,17 @@ def process_wallets(excel_file='wallets.xlsx'):
         print(f"❌ Ошибка при чтении файла {excel_file}: {str(e)}")
         return
 
-    required_columns = ['PrivateKey', 'Amount', 'Destination']
+    required_columns = ['PrivateKey', 'Destination']
     if not all(col in df.columns for col in required_columns):
         print(f"❌ В файле {excel_file} отсутствуют необходимые столбцы: {required_columns}")
         return
 
     for index, row in df.iterrows():
         private_key = str(row['PrivateKey']).strip()
-        amount_input = str(row['Amount']).strip().lower()
         destination = str(row['Destination']).strip()
 
         print(f"\n=== Обработка кошелька {index + 1} ===")
         print(f"Приватный ключ: {private_key[:6]}...{private_key[-6:]}")
-        print(f"Сумма: {amount_input}")
         print(f"Адрес назначения: {destination}")
 
         # Проверка приватного ключа
@@ -239,27 +252,8 @@ def process_wallets(excel_file='wallets.xlsx'):
             print(f"❌ Некорректный адрес назначения: {destination}")
             continue
 
-        # Проверка баланса FTM
-        balance_ftm = check_balance_ftm(private_key)
-        print(f"💰 Баланс FTM: {balance_ftm:.6f} FTM")
-
-        # Определяем сумму для бриджа
-        if amount_input == "max":
-            amount_ftm = "max"
-            if balance_ftm < 0.01:
-                print(f"❌ Недостаточно FTM для бриджа: {balance_ftm:.6f} FTM")
-                continue
-        else:
-            try:
-                amount_ftm = float(amount_input)
-                if amount_ftm <= 0:
-                    raise ValueError("Сумма должна быть положительной")
-            except ValueError:
-                print(f"❌ Неверный формат суммы: {amount_input}")
-                continue
-
-        # Выполняем бридж
-        bridge_tx = bridge_ftm_to_sonic(private_key, amount_ftm)
+        # Выполняем бридж FTM → S
+        bridge_tx = bridge_ftm_to_sonic(private_key)
         if not bridge_tx:
             print(f"❌ Бридж не выполнен")
             continue
@@ -267,11 +261,11 @@ def process_wallets(excel_file='wallets.xlsx'):
         # Ждём зачисления S
         print("ℹ️ Ожидаем зачисления S...")
         for attempt in range(3):
-            sonic_balance = check_balance_sonic(private_key)
+            sonic_balance_wei, sonic_balance = check_balance_sonic(private_key)
             if sonic_balance >= 0.0005:
                 break
-            print(f"ℹ️ Попытка {attempt + 1}/3: S ещё не зачислены, ждём 60 секунд...")
-            time.sleep(60)
+            print(f"ℹ️ Попытка {attempt + 1}/3: S ещё не зачислены, ждём 30 секунд...")
+            time.sleep(15)
         else:
             print(f"❌ Недостаточно S: {sonic_balance:.6f} S")
             continue
