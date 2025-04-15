@@ -2,64 +2,50 @@ import pandas as pd
 import requests
 import time
 from datetime import datetime
-from eth_account import Account
 
-# Целевые кошельки (в нижнем регистре)
+
 TARGET_WALLETS = [
     "0x1fa63a80d5f3b7b092e6b70dce5beba996a92fa6".lower(),
     "0x90210001ffdc5c90645c347a583922c1b9fe8e44".lower()
 ]
 
-# Конфигурация сетей
 NETWORKS = {
     "arbitrum": {
         "explorer": "https://api.arbiscan.io/api",
-        "api_key": "EGS2QWPD9G4DED41FZDYGP6XW6SI3JSJ5F",  # Замени на свой ключ
+        "api_key": "EGS2QWPD9G4DED41FZDYGP6XW6SI3JSJ5F",
         "native_token": "ARB"
     },
     "optimism": {
         "explorer": "https://api-optimistic.etherscan.io/api",
-        "api_key": "TNM2RBE4NAZ3CTFC2NX2U2SEUNQQTXG66R",  # Замени на свой ключ
+        "api_key": "TNM2RBE4NAZ3CTFC2NX2U2SEUNQQTXG66R",
         "native_token": "OP"
     },
     "fantom": {
         "explorer": "https://api.ftmscan.com/api",
-        "api_key": "YOUR_FTMSCAN_API_KEY",  # Замени на свой ключ
+        "api_key": "YOUR_FTMSCAN_API_KEY",
         "native_token": "FTM"
     },
     "base": {
         "explorer": "https://api.basescan.org/api",
-        "api_key": "7K4BV9AUPWX9ZRSDYJ29QNI9MWI3M7PIZI",  # Замени на свой ключ
+        "api_key": "7K4BV9AUPWX9ZRSDYJ29QNI9MWI3M7PIZI",
         "native_token": "ETH"
     },
     "ethereum": {
         "explorer": "https://api.etherscan.io/api",
-        "api_key": "15FYRR5CE2WABHFKIZ4VSEZCHVZSINDKMZ",  # Замени на свой ключ
+        "api_key": "15FYRR5CE2WABHFKIZ4VSEZCHVZSINDKMZ",
         "native_token": "ETH"
     },
     "polygon": {
         "explorer": "https://api.polygonscan.com/api",
-        "api_key": "BMWIQ6ZY1GAW48SV5AX1USGBS1G99JQBXB",  # Замени на свой ключ
+        "api_key": "BMWIQ6ZY1GAW48SV5AX1USGBS1G99JQBXB",
         "native_token": "MATIC"
     },
     "bnb": {
         "explorer": "https://api.bscscan.com/api",
-        "api_key": "ZUSGFQDS9D9FF26Q2YAD356BKS3T24PES2",  # Замени на свой ключ
+        "api_key": "ZUSGFQDS9D9FF26Q2YAD356BKS3T24PES2",
         "native_token": "BNB"
     }
 }
-
-
-# Получение адреса из приватного ключа (без RPC)
-def get_address_from_private_key(private_key):
-    try:
-        if not private_key.startswith("0x"):
-            private_key = "0x" + private_key
-        account = Account.from_key(private_key)
-        return account.address.lower()
-    except Exception as e:
-        print(f"❌ Ошибка получения адреса: {str(e)}")
-        return None
 
 
 # Проверка транзакций в сети
@@ -180,22 +166,23 @@ def process_wallets(excel_file="wallets.xlsx"):
         print(f"❌ Ошибка чтения файла: {str(e)}")
         return
 
-    required_columns = ["PrivateKey"]
+    required_columns = ["Address"]
     if not all(col in df.columns for col in required_columns):
         print(f"❌ Отсутствуют столбцы: {required_columns}")
         return
 
-    for index, row in df.iterrows():
-        private_key = str(row["PrivateKey"]).strip()
-        print(f"\n=== Обработка кошелька {index + 1} ===")
-        print(f"Приватный ключ: {private_key[:6]}...{private_key[-6:]}")
+    # Список для кошельков с совпадениями
+    matched_wallets = []
 
-        # Получаем адрес
-        wallet_address = get_address_from_private_key(private_key)
-        if not wallet_address:
-            print(f"❌ Некорректный приватный ключ")
-            continue
+    for index, row in df.iterrows():
+        wallet_address = str(row["Address"]).strip().lower()
+        print(f"\n=== Обработка кошелька {index + 1} ===")
         print(f"Адрес кошелька: {wallet_address}")
+
+        # Проверяем, что адрес валидный
+        if not wallet_address.startswith("0x") or len(wallet_address) != 42:
+            print(f"❌ Некорректный адрес: {wallet_address}")
+            continue
 
         # Проверяем взаимодействия
         total_interactions = 0
@@ -224,6 +211,22 @@ def process_wallets(excel_file="wallets.xlsx"):
             time.sleep(0.2)
 
         print(f"\n📊 Итог для {wallet_address}: {total_interactions} взаимодействий")
+
+        # Если есть взаимодействия, добавляем кошелёк в список
+        if total_interactions > 0:
+            matched_wallets.append({
+                "Address": wallet_address,
+                "InteractionCount": total_interactions
+            })
+
+    # Сохраняем совпадающие кошельки в файл
+    if matched_wallets:
+        matched_df = pd.DataFrame(matched_wallets)
+        output_file = "matched_wallets.xlsx"
+        matched_df.to_excel(output_file, index=False)
+        print(f"\n✅ Совпадающие кошельки сохранены в {output_file}")
+    else:
+        print("\nℹ️ Совпадающих кошельков не найдено")
 
     print("\n=== Обработка завершена ===")
 
