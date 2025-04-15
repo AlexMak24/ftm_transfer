@@ -12,12 +12,12 @@ TARGET_WALLETS = [
 NETWORKS = {
     "arbitrum": {
         "explorer": "https://api.arbiscan.io/api",
-        "api_key": "EGS2QWPD9G4DED41FZDYGP6XW6SI3JSJ5F",
+        "api_key": "",
         "native_token": "ARB"
     },
     "optimism": {
         "explorer": "https://api-optimistic.etherscan.io/api",
-        "api_key": "TNM2RBE4NAZ3CTFC2NX2U2SEUNQQTXG66R",
+        "api_key": "",
         "native_token": "OP"
     },
     "fantom": {
@@ -27,22 +27,22 @@ NETWORKS = {
     },
     "base": {
         "explorer": "https://api.basescan.org/api",
-        "api_key": "7K4BV9AUPWX9ZRSDYJ29QNI9MWI3M7PIZI",
+        "api_key": "",
         "native_token": "ETH"
     },
     "ethereum": {
         "explorer": "https://api.etherscan.io/api",
-        "api_key": "15FYRR5CE2WABHFKIZ4VSEZCHVZSINDKMZ",
+        "api_key": "",
         "native_token": "ETH"
     },
     "polygon": {
         "explorer": "https://api.polygonscan.com/api",
-        "api_key": "BMWIQ6ZY1GAW48SV5AX1USGBS1G99JQBXB",
+        "api_key": "",
         "native_token": "MATIC"
     },
     "bnb": {
         "explorer": "https://api.bscscan.com/api",
-        "api_key": "ZUSGFQDS9D9FF26Q2YAD356BKS3T24PES2",
+        "api_key": "",
         "native_token": "BNB"
     }
 }
